@@ -48,25 +48,43 @@ class HH(Engine):
         api_url = 'https://api.hh.ru/vacancies'
         headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
                                  'Chrome/58.0.3029.110 Safari/537.3'}
-        params = {'text': 'Python разработчик'}  # параметры запроса (название вакансии)
+        params = {'text': 'Python разработчик', 'per_page': 100}  # параметры запроса (название вакансии)
 
-        response = requests.get(api_url, headers=headers, params=params)  # выполнение запроса
+        vacancies = []
+        page = 0
 
-        if response.ok:  # проверяем успешность запроса
-            vacancies = response.json()  # получаем список вакансий в формате JSON
-            for vacancy in vacancies['items']:
+        while len(vacancies) < 1000:
+            page += 1
+            params['page'] = page
+            response = requests.get(api_url, headers=headers, params=params)  # выполнение запроса
+
+            if response.ok:  # проверяем успешность запроса
+                data = response.json()  # получаем список вакансий в формате JSON
+                if len(data['items']) == 0:
+                    break
+                else:
+                    vacancies += data['items']
+            else:
+                print('Ошибка выполнения запроса')
+                break
+
+            count = 1
+
+            for vacancy in vacancies:
                 salary = vacancy['salary']  # получаем информацию о зарплате
                 if salary is not None:
                     if salary['currency'] == 'RUR':  # выводим только зарплату в рублях
                         # выводим наименование вакансии и зарплату
-                        print(vacancy['name'], salary['from'], '-', salary['to'], salary['currency'])
+                        print(count, ')', vacancy['name'], salary['from'], '-', salary['to'], salary['currency'])
+                        count += 1
                     else:
-                        print(vacancy['name'], 'Зарплата не указана')
+                        print(count, ')', vacancy['name'], 'Зарплата не указана')
+                        count += 1
 
                 with open("list_of_vacancies.json", "w", encoding="UTF-8") as file:
                     json.dump(vacancy, file)
-        else:
-            print('Ошибка выполнения запроса')
+            # else:
+                # print('Ошибка выполнения запроса')
 
 
 class SuperJob(Engine):
@@ -87,6 +105,6 @@ class SuperJob(Engine):
 
 
 rt = HH('OauthToken')
-# с.get_vacancies()
+rt.get_request()
 # areas = get_request()
-rt.get_vacancies()
+# rt.get_vacancies()
