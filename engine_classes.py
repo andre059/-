@@ -21,7 +21,7 @@ class HH(Engine):
     def __init__(self, secret_key):
         self.secret_key = secret_key
 
-    def get_request(self, page=None):
+    def get_request(self, page: int = 10):
         params = {
             'text': 'NAME:Аналитик',  # Текст фильтра. В имени должно быть слово "Аналитик"
             'area': 1,  # Поиск ощуществляется по вакансиям города Москва
@@ -29,7 +29,7 @@ class HH(Engine):
             'per_page': 100  # Кол-во вакансий на 1 странице
         }
 
-        for page in range(0, 20):
+        for page in range(0, page):
             # Преобразуем текст ответа запроса в справочник Python
             jsObj = json.loads(self.get_request(page))
             # Создаем новый документ, записываем в него ответ запроса, после закрываем
@@ -65,7 +65,7 @@ class HH(Engine):
                 else:
                     vacancies += data['items']
             else:
-                print('Ошибка выполнения запроса')
+                print('Ошибка выполнения запроса 1')
                 break
 
             count = 1
@@ -81,10 +81,10 @@ class HH(Engine):
                         print(count, ')', vacancy['name'], 'Зарплата не указана')
                         count += 1
 
-                with open("list_of_vacancies.json", "w", encoding="UTF-8") as file:
-                    json.dump(vacancy, file)
-            # else:
-                # print('Ошибка выполнения запроса')
+                    with open("list_of_vacancies.json", "w", encoding="UTF-8") as file:
+                        json.dump(vacancy, file)
+            else:
+                print('Ошибка выполнения запроса 2')
 
 
 class SuperJob(Engine):
@@ -105,6 +105,6 @@ class SuperJob(Engine):
 
 
 rt = HH('OauthToken')
-rt.get_request()
+# rt.get_request()
 # areas = get_request()
-# rt.get_vacancies()
+rt.get_vacancies()

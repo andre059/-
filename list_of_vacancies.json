@@ -1,59 +1,53 @@
 {
-  "id": "78890807",
+  "id": "79893674",
   "premium": false,
-  "name": "SDET / Software Development Engineer in Test (\u0432\u0438\u0440\u0442\u0443\u0430\u043b\u044c\u043d\u044b\u0435 \u043a\u043e\u043d\u0442\u0440\u043e\u043b\u043b\u0435\u0440\u044b)",
+  "name": "Python or C++ Quantitative Developer to Armenia",
   "department": null,
   "has_test": false,
   "response_letter_required": false,
   "area": {
-    "id": "4",
-    "name": "\u041d\u043e\u0432\u043e\u0441\u0438\u0431\u0438\u0440\u0441\u043a",
-    "url": "https://api.hh.ru/areas/4"
+    "id": "1",
+    "name": "\u041c\u043e\u0441\u043a\u0432\u0430",
+    "url": "https://api.hh.ru/areas/1"
   },
-  "salary": null,
+  "salary": {
+    "from": null,
+    "to": 5700,
+    "currency": "USD",
+    "gross": true
+  },
   "type": {
     "id": "open",
     "name": "\u041e\u0442\u043a\u0440\u044b\u0442\u0430\u044f"
   },
-  "address": {
-    "city": "\u041d\u043e\u0432\u043e\u0441\u0438\u0431\u0438\u0440\u0441\u043a",
-    "street": "\u0443\u043b\u0438\u0446\u0430 \u041d\u0438\u043a\u043e\u043b\u0430\u0435\u0432\u0430",
-    "building": "11/5",
-    "lat": 54.85872,
-    "lng": 83.111537,
-    "description": null,
-    "raw": "\u041d\u043e\u0432\u043e\u0441\u0438\u0431\u0438\u0440\u0441\u043a, \u0443\u043b\u0438\u0446\u0430 \u041d\u0438\u043a\u043e\u043b\u0430\u0435\u0432\u0430, 11/5",
-    "metro": null,
-    "metro_stations": [],
-    "id": "12505832"
-  },
+  "address": null,
   "response_url": null,
   "sort_point_distance": null,
-  "published_at": "2023-05-02T11:35:12+0300",
-  "created_at": "2023-05-02T11:35:12+0300",
+  "published_at": "2023-04-27T18:06:57+0300",
+  "created_at": "2023-04-27T18:06:57+0300",
   "archived": false,
-  "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=78890807",
+  "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=79893674",
   "insider_interview": null,
-  "url": "https://api.hh.ru/vacancies/78890807?host=hh.ru",
+  "url": "https://api.hh.ru/vacancies/79893674?host=hh.ru",
   "adv_response_url": null,
-  "alternate_url": "https://hh.ru/vacancy/78890807",
+  "alternate_url": "https://hh.ru/vacancy/79893674",
   "relations": [],
   "employer": {
-    "id": "876195",
-    "name": "\u0421\u0438\u0431\u0438\u0440\u0441\u043a\u0430\u044f \u0433\u0435\u043d\u0435\u0440\u0438\u0440\u0443\u044e\u0449\u0430\u044f \u041a\u043e\u043c\u043f\u0430\u043d\u0438\u044f",
-    "url": "https://api.hh.ru/employers/876195",
-    "alternate_url": "https://hh.ru/employer/876195",
+    "id": "659638",
+    "name": "\u0410\u0433\u0435\u043d\u0442\u0441\u0442\u0432\u043e 21 \u0432\u0435\u043a, \u041a\u0426",
+    "url": "https://api.hh.ru/employers/659638",
+    "alternate_url": "https://hh.ru/employer/659638",
     "logo_urls": {
-      "240": "https://hhcdn.ru/employer-logo/2243940.png",
-      "90": "https://hhcdn.ru/employer-logo/2243939.png",
-      "original": "https://hhcdn.ru/employer-logo-original/450493.PNG"
+      "original": "https://hhcdn.ru/employer-logo-original/889998.png",
+      "90": "https://hhcdn.ru/employer-logo/4000679.png",
+      "240": "https://hhcdn.ru/employer-logo/4000680.png"
     },
-    "vacancies_url": "https://api.hh.ru/vacancies?employer_id=876195",
+    "vacancies_url": "https://api.hh.ru/vacancies?employer_id=659638",
     "trusted": true
   },
   "snippet": {
-    "requirement": "\u041e\u043f\u044b\u0442 \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f \u043d\u0430 <highlighttext>Python</highlighttext> \u043e\u0442 2 \u043b\u0435\u0442. \u041e\u043f\u044b\u0442 \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0437\u0430\u0446\u0438\u0438 \u0440\u0435\u0433\u0440\u0435\u0441\u0441\u0438\u043e\u043d\u043d\u043e\u0433\u043e \u0442\u0435\u0441\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f \u043e\u0442 2 \u043b\u0435\u0442. \u041e\u043f\u044b\u0442 \u0442\u0435\u0441\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f \u0432 \u0441\u0444\u0435\u0440\u0435 \u0438\u043d\u0444\u043e\u0440\u043c\u0430\u0446\u0438\u043e\u043d\u043d\u044b\u0445 \u0441\u0438\u0441\u0442\u0435\u043c...",
-    "responsibility": "SDET (\u043d\u0430\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u043a\u043e\u043c\u043f\u0438\u043b\u044f\u0442\u043e\u0440\u043e\u0432). SDET (\u043d\u0430\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0432\u0438\u0440\u0442\u0443\u0430\u043b\u044c\u043d\u044b\u0445 \u043a\u043e\u043d\u0442\u0440\u043e\u043b\u043b\u0435\u0440\u043e\u0432). <highlighttext>\u0420\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u0447\u0438\u043a</highlighttext> \u0438\u043d\u0444\u0440\u0430\u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u044b \u0430\u0432\u0442\u043e\u043c\u0430\u0442\u0438\u0437\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u043e\u0433\u043e \u0442\u0435\u0441\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f. \u0420\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u043a\u0430 \u043e\u0431\u0432\u044f\u0437\u043a\u0438 \u0434\u043b\u044f \u0442\u0435\u0441\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f \u044f\u0434\u0440\u0430 ISaKER (\u0432\u0438\u0440\u0442\u0443\u0430\u043b\u044c\u043d\u0430\u044f \u043c\u0430\u0448\u0438\u043d\u0430 \u041c\u042d\u041a..."
+    "requirement": "<highlighttext>Python</highlighttext> or C++ programming skills. Experience in building distributed or data-intensive systems as a plus. English B1+.",
+    "responsibility": "Design and <highlighttext>develop</highlighttext> production code of trading strategies for bringing research ideas to life, and having a real business impact. "
   },
   "contacts": null,
   "schedule": null,
@@ -63,14 +57,14 @@
   "accept_temporary": false,
   "professional_roles": [
     {
-      "id": "124",
-      "name": "\u0422\u0435\u0441\u0442\u0438\u0440\u043e\u0432\u0449\u0438\u043a"
+      "id": "96",
+      "name": "\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0438\u0441\u0442, \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u0447\u0438\u043a"
     }
   ],
   "accept_incomplete_resumes": false,
   "experience": {
-    "id": "between1And3",
-    "name": "\u041e\u0442 1 \u0433\u043e\u0434\u0430 \u0434\u043e 3 \u043b\u0435\u0442"
+    "id": "between3And6",
+    "name": "\u041e\u0442 3 \u0434\u043e 6 \u043b\u0435\u0442"
   },
   "employment": {
     "id": "full",
