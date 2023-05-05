@@ -54,6 +54,7 @@ class HH(Engine):
         page = 0
 
         while len(vacancies) < 1000:
+            count = 1
             page += 1
             params['page'] = page
             response = requests.get(api_url, headers=headers, params=params)  # выполнение запроса
@@ -67,8 +68,6 @@ class HH(Engine):
             else:
                 print('Ошибка выполнения запроса 1')
                 break
-
-            count = 1
 
             for vacancy in vacancies:
                 salary = vacancy['salary']  # получаем информацию о зарплате
