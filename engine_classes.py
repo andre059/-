@@ -50,7 +50,6 @@ class HH(Engine):
                 if vacancy.get('salary').get('currency') == 'RUR':  # выводим только зарплату в рублях
                     count += 1
                     # выводим наименование вакансии и зарплату
-
                     # print(count, ')', vacancy['name'], vacancy['from'], '-', vacancy['to'], vacancy['currency'])
                     print(count, ')', vacancy['name'])
                 else:
