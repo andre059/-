@@ -29,7 +29,7 @@ class HH(Engine):
         for page in range(0, page):
             params['page'] = page
             response = requests.get('https://api.hh.ru/vacancies', params)
-            # response.raise_for_status()
+            response.raise_for_status()
 
             data = response.json()
             items.extend(data['items'])
@@ -42,15 +42,16 @@ class HH(Engine):
     def get_vacancies(self):
         count = 0
 
-        with open("list_of_vacancies.json", "r", encoding="UTF-8") as file:
+        with open("data_file.json", "r", encoding="UTF-8") as file:
             data = json.load(file)
 
         for vacancy in data:
-            if vacancy is not None:
-                if vacancy['currency'] == 'RUR':  # выводим только зарплату в рублях
+            if vacancy.get('salary') is not None:
+                if vacancy.get('salary').get('currency') == 'RUR':  # выводим только зарплату в рублях
                     count += 1
                     # выводим наименование вакансии и зарплату
-                    print(count, ')', vacancy['name'], vacancy['from'], '-', vacancy['to'], vacancy['currency'])
+                    # print(count, ')', vacancy['name'], vacancy['from'], '-', vacancy['to'], vacancy['currency'])
+                    print(count, ')', vacancy['name'])
                 else:
                     count += 1
                     print(count, ')', vacancy['name'], 'Зарплата не указана')
