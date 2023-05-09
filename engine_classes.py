@@ -81,3 +81,34 @@ rt = HH('OauthToken')
 # rt.get_request()
 # areas = get_request()
 rt.get_vacancies()
+
+
+
+
+
+
+
+
+
+# class Engine(ABC):
+    # @abstractmethod
+    # def get_request(self):
+        # pass
+
+    # @staticmethod
+    # def get_connector(file_name):
+        # """ Возвращает экземпляр класса Connector """
+        # pass
+
+
+# class HH(Engine):
+    # def get_request(self):
+        # pass
+
+# class SuperJob(Engine):
+    # def get_request(self):
+        # pass
+
+
+
+
