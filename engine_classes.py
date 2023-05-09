@@ -84,10 +84,3 @@ rt.get_vacancies()
 
 
 
-
-
-
-
-
-
-
