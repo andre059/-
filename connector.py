@@ -33,7 +33,7 @@ class Connector:
         """
         if not os.path.isfile('../Курсовой проект по ООП'):
             raise FileNotFoundError("Файл json отсутствует")
-        with open('data_file.json', 'r', encoding="utf8") as file:
+        with open(self.__data_file, 'r', encoding="utf8") as file:
             json_reader = json.load(file)
             print(len(json_reader))
             if not isinstance(json_reader, list):
@@ -48,7 +48,7 @@ class Connector:
         и вернуть все строки, в которых цена 1000
         """
         result = []
-        with open('data_file.json', 'r', encoding="UTF-8") as file:
+        with open(self.__data_file, 'r', encoding="UTF-8") as file:
             data = json.load(file)  # считывает файл и возвращает объекты Python
 
         if not query:
