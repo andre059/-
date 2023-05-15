@@ -1,9 +1,11 @@
 import json
-import os
 
 import requests
 
 from abc import ABC, abstractmethod
+from connector import Connector
+
+from jobs_classes import HHVacancy, SJVacancy
 
 
 class Engine(ABC):
@@ -14,73 +16,155 @@ class Engine(ABC):
     @staticmethod
     def get_connector(file_name):
         """ Возвращает экземпляр класса Connector """
-        pass
+        return Connector(file_name)
 
 
 class HH(Engine):
-    def __init__(self, secret_key):
-        self.secret_key = secret_key
+    """Класс с методами для HeadHunter"""
+    URL = 'https://api.hh.ru/vacancies/'
 
-    def get_request(self, page: int = 11):
-        params = {'per_page': 100, 'only_with_salary': True}
+    def __init__(self, search_keyword):
+        super().__init__()
+        self.params = {
+            'text': f'{search_keyword}',
+            'per_page': 100,
+            'area': 113,
+            'page': 0
+        }
 
-        items: list[dict] = []
+    def get_request(self):
+        """Запрос вакансий API HeadHunter"""
 
-        for page in range(0, page):
-            params['page'] = page
-            response = requests.get('https://api.hh.ru/vacancies', params)
-            response.raise_for_status()
+        response = requests.get(self.URL, params=self.params)
+        data = response.content.decode()
+        response.close()
 
-            data = response.json()
-            items.extend(data['items'])
+        js_hh = json.loads(data)
+        return js_hh
 
-            with open("data_file.json", "w", encoding="UTF-8") as file:
-                json.dump(items, file)
+    def get_info(self, data):
+        """Структурирует получаемые из API данные по ключам"""
+        info = {
+            'from': 'HeadHunter',
+            'name': data.get('name'),
+            'url': data.get('alternate_url'),
+            'description': data.get('snippet').get('responsibility'),
+            'salary': data.get('salary'),
+            'date_published': data.get('published_at'),
 
-        return items
+        }
+
+        return info
 
     def get_vacancies(self):
-        count = 0
+        """Записывает информацию о вакансии в список при наличии сведений о ЗП в рублях"""
 
-        with open("data_file.json", "r", encoding="UTF-8") as file:
-            data = json.load(file)
+        vacancies = []
 
-        for vacancy in data:
-            if vacancy.get('salary') is not None:
-                if vacancy.get('salary').get('currency') == 'RUR':  # выводим только зарплату в рублях
-                    count += 1
-                    # выводим наименование вакансии и зарплату
-                    # print(count, ')', vacancy['name'], vacancy['from'], '-', vacancy['to'], vacancy['currency'])
-                    print(count, ')', vacancy['name'])
-                else:
-                    count += 1
-                    print(count, ')', vacancy['name'], 'Зарплата не указана')
+        while len(vacancies) <= 50:
+            data = self.get_request()
+            items = data.get('items')
+            if not items:  # Если нет вакансий на странице, выход из цикла
+                break
 
-            with open("list_of_vacancies.json", "w", encoding="UTF-8") as f:
-                json.dump(vacancy, f)
+            for vacancy in items:
+                if vacancy.get('salary') is not None and vacancy.get('salary').get('currency') == 'RUR':
+                    vacancies.append(self.get_info(vacancy))
+                with open("data_file.json", "w", encoding="UTF-8") as f:
+                    json.dump(vacancies, f)
+
+            self.params['page'] += 1  # Увеличиваем значение параметра 'page' после обработки всех вакансий на
+            # текущей странице
+
+        return vacancies
+
+    @property
+    def vacancies(self):
+        """Цикл создает список вакансий"""
+        data_vacancies = self.get_vacancies()
+        list_of_vacancies = []
+
+        for data in data_vacancies:
+            list_of_vacancies.append(HHVacancy(**data))
+        return list_of_vacancies
 
 
 class SuperJob(Engine):
-    def __init__(self, secret_key):
-        self.secret_key = secret_key
+    """Класс с методами для SuperJob"""
+    URL = 'https://api.superjob.ru/2.0/vacancies/'
 
-    def get_request(self, **kwargs):
-        url = "https://api.superjob.ru/2.0/vacancies?keyword={}&town={}&date_published={}&page={}".format(
-            kwargs.get("keyword"),
-            kwargs.get("town"),
-            kwargs.get("date_published"),
-            kwargs.get("page")
-        )
-        headers = {"X-Api-App-Id": self.secret_key}
-        response = requests.get(url, headers=headers)
-        vacancies = response.json().get("objects")
+    def __init__(self, secret_key):
+        super().__init__()
+        self.HEADERS = None
+        self.params = {'keywords': f'{secret_key}', 'count': 100, 'page': 0}
+
+    def get_request(self):
+        """Запрос вакансий API SuperJob"""
+        self.HEADERS = {
+            'Host': 'api.superjob.ru',
+            'X-Api-App-Id': 'v3.r.137546672.bfe0b948906b940917b19c2a6104216a16c5cfe6.7152d65011bce9da'
+                            '834792d246ac8515b5203bec',
+            'Authorization': 'Bearer r.000000000000001.example.token',
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+
+        response = requests.get(self.URL, headers=self.HEADERS, params=self.params)  # .json()
+        data = response.content.decode()
+        response.close()
+        js_sj = json.loads(data)
+        print(js_sj)
+        return js_sj
+
+    def get_info_vacancy(self, data):
+        """Структурирует получаемые из API данные, по ключам"""
+        info = {
+            'from': 'SuperJob',
+            'name': data.get('profession'),
+            'url': data.get('link'),
+            'description': data.get('description'),
+            'salary': data.get('payment_to'),
+            'date_published': data.get('published_at')
+
+        }
+        return info
+
+    def get_vacancies(self):
+        """Записывает информацию о вакансии в список при наличии сведений о ЗП в рублях"""
+        vacancies = []
+        while len(vacancies) <= 50:
+            data = self.get_request()
+            objects = data.get('objects')
+            if not objects:  # Если нет вакансий на странице, выход из цикла
+                break
+            for vacancy in objects:
+                if vacancy.get('payment_to') != 0 and vacancy.get('currency') == 'rub':
+                    vacancies.append(self.get_info_vacancy(vacancy))
+                with open("list_of_vacancies.json", "w", encoding="UTF-8") as f:
+                    json.dump(vacancies, f)
+
+            self.params[
+                'page'] += 1  # Увеличиваем значение параметра 'page' после обработки всех вакансий на текущей странице
+
+        # print(len(vacancies))
         return vacancies
 
+    @property
+    def vacancies(self):
+        """Цикл создает список вакансий"""
+        vacancies_data = self.get_vacancies()
+        sj_vacancies = []
+        for data in vacancies_data:
+            sj_vacancies.append(SJVacancy(**data))
+        return sj_vacancies
 
-rt = HH('OauthToken')
-# rt.get_request()
+
+search_keyword = 'Python'
+rt = HH(search_keyword)
+rt.get_request()
 # areas = get_request()
-rt.get_vacancies()
+# rt.get_vacancies()
 
+sj = SuperJob(search_keyword)
+sj.get_request()
 
 

@@ -1,3 +1,7 @@
+import json
+import os
+
+
 class Connector:
     """
     Класс коннектор к файлу, обязательно файл должен быть в json формате
@@ -6,13 +10,18 @@ class Connector:
     """
     __data_file = None
 
+    def __init__(self, file_path: str):
+        self.__data_file = file_path
+        self.__connect()
+
     @property
     def data_file(self):
-        pass
+        return self.__data_file
 
     @data_file.setter
     def data_file(self, value):
         # тут должен быть код для установки файла
+        self.__data_file = value
         self.__connect()
 
     def __connect(self):
@@ -22,15 +31,15 @@ class Connector:
         Также проверить на деградацию и возбудить исключение
         если файл потерял актуальность в структуре данных
         """
-        pass
+        if not os.path.isfile('../Курсовой проект по ООП/data_file.json'):
+            raise FileNotFoundError("Файл data_file.json отсутствует")
+        with open('data_file.json', 'r', encoding="utf8") as file:
+            json_reader = json.load(file)
+            print(len(json_reader))
+            if not isinstance(json_reader, list):
+                raise Exception('Файл должен содержать список')
 
-    def insert(self, data):
-        """
-        Запись данных в файл с сохранением структуры и исходных данных
-        """
-        pass
-
-    def select(self, query):
+    def select(self, query: dict):
         """
         Выбор данных из файла с применением фильтрации
         query содержит словарь, в котором ключ это поле для
@@ -38,26 +47,31 @@ class Connector:
         {'price': 1000}, должно отфильтровать данные по полю price
         и вернуть все строки, в которых цена 1000
         """
-        pass
+        result = []
+        with open('data_file.json', 'r', encoding="UTF-8") as file:
+            data = json.load(file)  # считывает файл и возвращает объекты Python
 
-    def delete(self, query):
-        """
-        Удаление записей из файла, которые соответствуют запрос,
-        как в методе select. Если в query передан пустой словарь, то
-        функция удаления не сработает
-        """
-        pass
+        if not query:
+            return data
+
+        for item in data:
+            for key, value in query.items():
+                if item.get(key) == value:
+                    result.append(item)
+
+        return result
 
 
-if __name__ == '__main__':
-    df = Connector('df.json')
+# if __name__ == '__main__':
+# df = Connector('data_file.json')
 
-    data_for_file = {'id': 1, 'title': 'tet'}
+# data_for_file = {'id': 1, 'title': 'tet'}
+# df.insert(data_for_file)
 
-    df.insert(data_for_file)
-    data_from_file = df.select(dict())
-    assert data_from_file == [data_for_file]
+# d = {"from": "SuperJob"}
+# data_from_file = df.select(dict())
+# assert data_from_file == [data_for_file]
 
-    df.delete({'id': 1})
-    data_from_file = df.select(dict())
-    assert data_from_file == []
+# df.delete({'id': 1})
+# data_from_file = df.select(dict())
+# assert data_from_file == []
