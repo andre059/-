@@ -23,10 +23,10 @@ class HH(Engine):
     """Класс с методами для HeadHunter"""
     URL = 'https://api.hh.ru/vacancies/'
 
-    def __init__(self, search_keyword):
+    def __init__(self, search_key):
         super().__init__()
         self.params = {
-            'text': f'{search_keyword}',
+            'text': f'{search_key}',
             'per_page': 100,
             'area': 113,
             'page': 0
@@ -70,8 +70,8 @@ class HH(Engine):
             for vacancy in items:
                 if vacancy.get('salary') is not None and vacancy.get('salary').get('currency') == 'RUR':
                     vacancies.append(self.get_info(vacancy))
-                with open("data_file.json", "w", encoding="UTF-8") as f:
-                    json.dump(vacancies, f)
+            with open("data_file_HH.json", "w", encoding="UTF-8") as f:
+                json.dump(items, f)
 
             self.params['page'] += 1  # Увеличиваем значение параметра 'page' после обработки всех вакансий на
             # текущей странице
@@ -102,8 +102,8 @@ class SuperJob(Engine):
         """Запрос вакансий API SuperJob"""
         self.HEADERS = {
             'Host': 'api.superjob.ru',
-            'X-Api-App-Id': 'v3.r.137546672.bfe0b948906b940917b19c2a6104216a16c5cfe6.7152d65011bce9da'
-                            '834792d246ac8515b5203bec',
+            'X-Api-App-Id':
+                'v3.r.137546672.bfe0b948906b940917b19c2a6104216a16c5cfe6.7152d65011bce9da834792d246ac8515b5203bec',
             'Authorization': 'Bearer r.000000000000001.example.token',
             'Content-Type': 'application/x-www-form-urlencoded'
         }
@@ -139,7 +139,7 @@ class SuperJob(Engine):
             for vacancy in objects:
                 if vacancy.get('payment_to') != 0 and vacancy.get('currency') == 'rub':
                     vacancies.append(self.get_info_vacancy(vacancy))
-                with open("list_of_vacancies.json", "w", encoding="UTF-8") as f:
+                with open("data_file_SJ.json", "w", encoding="UTF-8") as f:
                     json.dump(vacancies, f)
 
             self.params[
@@ -159,8 +159,8 @@ class SuperJob(Engine):
 
 
 search_keyword = 'Python'
-rt = HH(search_keyword)
-rt.get_request()
+# rt = HH(search_keyword)
+# rt.get_request()
 # areas = get_request()
 # rt.get_vacancies()
 

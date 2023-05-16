@@ -31,7 +31,7 @@ class Connector:
         Также проверить на деградацию и возбудить исключение
         если файл потерял актуальность в структуре данных
         """
-        if not os.path.isfile('../Курсовой проект по ООП'):
+        if not os.path.isfile('Users/aa/Desktop/Курсовой проект по ООП'):
             raise FileNotFoundError("Файл json отсутствует")
         with open(self.__data_file, 'r', encoding="utf8") as file:
             json_reader = json.load(file)
@@ -61,9 +61,8 @@ class Connector:
 
         return result
 
-
 # if __name__ == '__main__':
-# df = Connector('data_file.json')
+# df = Connector('data_file_HH.json')
 
 # data_for_file = {'id': 1, 'title': 'tet'}
 # df.insert(data_for_file)
