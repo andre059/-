@@ -38,8 +38,8 @@ class HH(Engine):
         response = requests.get(self.URL, params=self.params)
         data = response.content.decode()
         response.close()
-
         js_hh = json.loads(data)
+
         return js_hh
 
     def get_info(self, data):
@@ -70,11 +70,11 @@ class HH(Engine):
             for vacancy in items:
                 if vacancy.get('salary') is not None and vacancy.get('salary').get('currency') == 'RUR':
                     vacancies.append(self.get_info(vacancy))
-            with open("data_file_HH.json", "w", encoding="UTF-8") as f:
-                json.dump(items, f)
 
             self.params['page'] += 1  # Увеличиваем значение параметра 'page' после обработки всех вакансий на
             # текущей странице
+            with open("data_file_HH.json", "w", encoding="UTF-8") as f:
+                json.dump(vacancies, f)
 
         return vacancies
 
@@ -104,15 +104,14 @@ class SuperJob(Engine):
             'Host': 'api.superjob.ru',
             'X-Api-App-Id':
                 'v3.r.137546672.bfe0b948906b940917b19c2a6104216a16c5cfe6.7152d65011bce9da834792d246ac8515b5203bec',
-            'Authorization': 'Bearer r.000000000000001.example.token',
+            'Authorization': 'Bearer r.000000010000001.example.access_token',
             'Content-Type': 'application/x-www-form-urlencoded'
         }
 
-        response = requests.get(self.URL, headers=self.HEADERS, params=self.params)  # .json()
+        response = requests.get(self.URL, headers=self.HEADERS, params=self.params)
         data = response.content.decode()
         response.close()
         js_sj = json.loads(data)
-        print(js_sj)
         return js_sj
 
     def get_info_vacancy(self, data):
@@ -139,13 +138,13 @@ class SuperJob(Engine):
             for vacancy in objects:
                 if vacancy.get('payment_to') != 0 and vacancy.get('currency') == 'rub':
                     vacancies.append(self.get_info_vacancy(vacancy))
-                with open("data_file_SJ.json", "w", encoding="UTF-8") as f:
-                    json.dump(vacancies, f)
 
-            self.params[
-                'page'] += 1  # Увеличиваем значение параметра 'page' после обработки всех вакансий на текущей странице
+            self.params['page'] += 1
+            # Увеличиваем значение параметра 'page' после обработки всех вакансий на текущей странице
+            with open("data_file_SJ.json", "w", encoding="UTF-8") as f:
+                json.dump(vacancies, f)
 
-        # print(len(vacancies))
+        print(vacancies)
         return vacancies
 
     @property
@@ -158,13 +157,15 @@ class SuperJob(Engine):
         return sj_vacancies
 
 
-search_keyword = 'Python'
+# search_keyword = 'Python'
 # rt = HH(search_keyword)
 # rt.get_request()
+# rt.get_connector('file_name')
 # areas = get_request()
 # rt.get_vacancies()
 
-sj = SuperJob(search_keyword)
-sj.get_request()
+# sj = SuperJob(search_keyword)
+# sj.get_request()
+# sj.get_vacancies()
 
 
