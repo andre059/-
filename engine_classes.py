@@ -49,7 +49,7 @@ class HH(Engine):
             'name': data.get('name'),
             'url': data.get('alternate_url'),
             'description': data.get('snippet').get('responsibility'),
-            'salary': data.get('salary', {}).get('from', 0),
+            'salary': data.get('salary'),
             'date_published': data.get('published_at'),
 
         }
@@ -121,7 +121,7 @@ class SuperJob(Engine):
             'name': data.get('profession'),
             'url': data.get('link'),
             'description': data.get('description'),
-            'salary': data.get('salary', {}).get('from', 0),
+            'salary': data.get('payment_to'),
             'date_published': data.get('published_at')
 
         }
