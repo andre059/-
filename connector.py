@@ -31,13 +31,18 @@ class Connector:
         Также проверить на деградацию и возбудить исключение
         если файл потерял актуальность в структуре данных
         """
-        if not os.path.isfile('Users/aa/Desktop/Курсовой проект по ООП'):
-            raise FileNotFoundError("Файл json отсутствует")
-        with open(self.__data_file, 'r', encoding="utf8") as file:
-            json_reader = json.load(file)
-            print(len(json_reader))
-            if not isinstance(json_reader, list):
-                raise Exception('Файл должен содержать список')
+        with open(self.__data_file, 'w+', encoding="utf8") as file:
+            try:
+                json.load(file)
+            except:
+                json.dump([], file)
+
+    def insert(self, path, data):
+        """
+        Запись данных в файл с сохранением структуры и исходных данных
+        """
+        with open(path, 'w', encoding="UTF-8") as file:
+            json.dump([e.to_dict() for e in data], file, indent=4, ensure_ascii=False, skipkeys=True, sort_keys=True)
 
     def select(self, query: dict):
         """
@@ -60,6 +65,20 @@ class Connector:
                     result.append(item)
 
         return result
+
+    def delete(self, query):
+        """
+        Удаление записей из файла, которые соответствуют запрос,
+        как в методе select. Если в query передан пустой словарь, то
+        функция удаления не сработает
+        """
+        if not query:
+            raise ValueError("Запрос не должен быть пустым")
+        with open(self.data_file, 'r+') as f:
+            file_data = json.load(f)
+            f.seek(0)
+            json.dump([row for row in file_data if not all(row.get(key) == value for key, value in query.items())], f)
+            f.truncate()
 
 # if __name__ == '__main__':
 # df = Connector('data_file_HH.json')

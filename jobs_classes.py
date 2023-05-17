@@ -2,7 +2,6 @@ import datetime
 
 
 class Vacancy:
-    # __slots__ = ...
 
     def __init__(self, name='', url='', description='', salary='', date_published=datetime.datetime.now(), **kwargs):
         self.name = name
@@ -37,7 +36,7 @@ class HHVacancy(Vacancy):
         return f'HH: {self.name}, зарплата: {self.salary} руб/мес \n;'
 
     @property
-    def get_count_of_vacancy(self):
+    def max_salary(self):
         """
         Вернуть количество вакансий от текущего сервиса.
         Получать количество необходимо динамически из файла.

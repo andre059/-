@@ -6,7 +6,7 @@ from utils import check_search, get_top_vacancies_by_salary
 def main():
 
     global all_vacancies
-    path = os.path.join('data_file_HH.json')
+    path = os.path.join('data_file.json')
     connector = Engine.get_connector(path)  # создаем экземпляр класса Connector функцией get_connector из класса Engine
 
     search_keyword = input('Введите ключевое слово поиска')
@@ -28,7 +28,6 @@ def main():
 
     top_1 = get_top_vacancies_by_salary(all_vacancies, top_count)
     print(top_1)
-
 
 
 if __name__ == '__main__':

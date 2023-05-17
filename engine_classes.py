@@ -144,7 +144,7 @@ class SuperJob(Engine):
             with open("data_file_SJ.json", "w", encoding="UTF-8") as f:
                 json.dump(vacancies, f)
 
-        print(vacancies)
+        # print(vacancies)
         return vacancies
 
     @property
