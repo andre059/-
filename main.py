@@ -1,6 +1,6 @@
 import os
 from engine_classes import Engine, HH, SuperJob
-from utils import check_search, get_top_vacancies_by_salary
+from utils import check_search, get_top_vacancies_by_salary, get_top_vacancies_by_date
 
 
 def main():
@@ -26,6 +26,8 @@ def main():
     else:
         top_count = int(top_count)
 
+    # top = get_top_vacancies_by_date(all_vacancies, top_count)
+    # print(top)
     top_1 = get_top_vacancies_by_salary(all_vacancies, top_count)
     print(top_1)
 
