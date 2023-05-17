@@ -49,7 +49,7 @@ class HH(Engine):
             'name': data.get('name'),
             'url': data.get('alternate_url'),
             'description': data.get('snippet').get('responsibility'),
-            'salary': data.get('salary'),
+            'salary': data.get('salary', {}).get('from', 0),
             'date_published': data.get('published_at'),
 
         }

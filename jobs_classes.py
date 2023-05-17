@@ -41,7 +41,7 @@ class HHVacancy(Vacancy):
         Вернуть количество вакансий от текущего сервиса.
         Получать количество необходимо динамически из файла.
         """
-        value = self.salary.get('to', 0)
+        value = self.salary
         return 0 if value is None else value
 
     def __gt__(self, other):
