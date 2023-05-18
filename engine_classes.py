@@ -103,7 +103,7 @@ class SuperJob(Engine):
         self.HEADERS = {
             'Host': 'api.superjob.ru',
             'X-Api-App-Id':
-                'v3.r.137546672.bfe0b948906b940917b19c2a6104216a16c5cfe6.7152d65011bce9da834792d246ac8515b5203bec',
+                'sikret_kei',
             'Authorization': 'Bearer r.000000010000001.example.access_token',
             'Content-Type': 'application/x-www-form-urlencoded'
         }
